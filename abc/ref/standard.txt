@@ -1,0 +1,457 @@
+Synthesis from: http://abcnotation.com/wiki/abc:standard:v2.1#englishabc
+
+# -*- coding: utf-8 -*-
+
+information_fields = """
+Name              header tune hdr tn body inline    type 
+A:area              yes     yes     no      no      string
+B:book              yes     yes     no      no      string
+C:composer          yes     yes     no      no      string
+D:discography       yes     yes     no      no      string
+F:file url          yes     yes     no      no      string
+G:group             yes     yes     no      no      string
+H:history           yes     yes     no      no      string
+O:origin            yes     yes     no      no      string
+S:source            yes     yes     no      no      string
+Z:transcription     yes     yes     no      no      string
+
+X:reference number  no      yes     no      no      instruction
+T:tune title        no      yes     yes     no      string
+
+s:symbol line       no      no      yes     no      instruction
+w:words             no      no      yes     no      string
+W:words             no      yes     yes     no      string
+
+I:instruction       yes     yes     yes     yes     instruction
+r:remark            yes     yes     yes     yes     -
+N:notes             yes     yes     yes     yes     string
+m:macro             yes     yes     yes     yes     instruction
+
+U:user defined      yes     yes     yes     yes     instruction
+R:rhythm            yes     yes     yes     yes     string
+L:unit note length  yes     yes     yes     yes     instruction
+M:meter             yes     yes     yes     yes     instruction
+K:key               no      yes     yes     yes     instruction
+Q:tempo             no      yes     yes     yes     instruction
+V:voice             no      yes     yes     yes     instruction
+P:parts             no      yes     yes     yes     instruction
+
+"""
+
+
+
+------------------------------------------
+X: reference
+a) +Int  
+b) start of new song   
+c) can be empty
+
+------------------------------------------
+T: title
+a) must follow X:
+b) name a tune, can name part of a tune (before key or meter changes)
+c) can be empty
+
+++++++++++++++++++++++++++++
+C: composer
+O: origin (use ; separator)
+A: area
++: field continuation
+
+------------------------------------------
+M: meter
+a) none: omits meter
+b) symbols give common time: 6/8, 4/4, C, C|, 2+3+2/8
+c) when undefined free meter is assumed, and bar lines can be placed anywhere
+
+------------------------------------------
+L: unit note length
+a) note values can have symbols:
+b) if undefined, the note length will be calculated from M, 
+Commonly used values for unit note length are L:1/4 - quarter note (crotchet), L:1/8 - eighth note (quaver) and 
+L:1/16 - sixteenth note (semi-quaver). L:1 (whole note) - or equivalently L:1/1, L:1/2 (minim), L:1/32 (demi-semi-quaver), 
+L:1/64, L:1/128, L:1/256 and L:1/512 are also available, although L:1/64 and shorter values are optional and may not be 
+provided by all software packages.
+If there is no L: field defined, a unit note length is set by default, based on the meter field M:. This default is calculated 
+by computing the meter as a decimal: if it is less than 0.75 the default unit note length is a sixteenth note; if it is 0.75 or 
+greater, it is an eighth note. For example, 2/4 = 0.5, so, the default unit note length is a sixteenth note, while for 4/4 = 1.0, 
+or 6/8 = 0.75, or 3/4= 0.75, it is an eighth note. For M:C (4/4), M:C| (2/2) and M:none (free meter), the default unit note length 
+is 1/8.
+A meter change within the body of the tune will not change the unit note length.
+
+------------------------------------------
+Q: tempo  
+a) beats per minute: Q:1/2=120 means 120 half-note beats per minute.
+b) There may be up to 4 beats in the definition, e.g: Q:1/4 3/8 1/4 3/8=40 play the tune as if Q:5/4=40 was written
+c) may be preceded or followed by an optional text string, enclosed by quotes "Allegro" 1/4=120
+d) can be a string without an explicit tempo indication, e.g. Q:"Andante"
+
+------------------------------------------
+P: parts
+a) Tune Header = state the order in which the tune parts are played, P:ABABCDCD
+b) Tune Body = mark each part P:A or P:B
+c) sequence can repeat with parenthesis, P:(AB)3
+d) Player programs should use the P: field if possible to render a complete playback of the tune
+
+++++++++++++++++++++++++++++
+Z: transcription, several types of fields
+N: notes
+G: group, to group tunes
+H: history
+
+------------------------------------------
+K: key
+a) should be specified with a capital letter (A-G) which may be followed by a # or b for sharp or flat respectively
+b) mode should be specified (when no mode is indicated, major is assumed)
+c) By specifying an empty K: field, or K:none, it is possible to use no key signature at all
+d) signatures may be modified by adding accidentals, according to the format K:<tonic> <mode> <accidentals>.
+
+- The symbols ^, = and _ are used (before a note) to notate respectively a sharp, natural or flat. 
+Double sharps and flats are available with ^^ and __ respectively.
+
+Mode  Ionian  Aeolian  Mixolydian  Dorian  Phrygian  Lydian  Locrian
+K Sig  Major  Minor          
+7 sharps  C#  A#m  G#Mix  D#Dor  E#Phr  F#Lyd  B#Loc
+6 sharps  F#  D#m  C#Mix  G#Dor  A#Phr  BLyd  E#Loc
+5 sharps  B  G#m  F#Mix  C#Dor  D#Phr  ELyd  A#Loc
+4 sharps  E  C#m  BMix  F#Dor  G#Phr  ALyd  D#Loc
+3 sharps  A  F#m  EMix  BDor  C#Phr  DLyd  G#Loc
+2 sharps  D  Bm  AMix  EDor  F#Phr  GLyd  C#Loc
+1 sharp  G  Em  DMix  ADor  BPhr  CLyd  F#Loc
+0 sharps/flats  C  Am  GMix  DDor  EPhr  FLyd  BLoc
+1 flat  F  Dm  CMix  GDor  APhr  BbLyd  ELoc
+2 flats  Bb  Gm  FMix  CDor  DPhr  EbLyd  ALoc
+3 flats  Eb  Cm  BbMix  FDor  GPhr  AbLyd  DLoc
+4 flats  Ab  Fm  EbMix  BbDor  CPhr  DbLyd  GLoc
+5 flats  Db  Bbm  AbMix  EbDor  FPhr  GbLyd  CLoc
+6 flats  Gb  Ebm  DbMix  AbDor  BbPhr  CbLyd  FLoc
+7 flats  Cb  Abm  GbMix  DbDor  EbPhr  FbLyd  BbLoc
+
+++++++++++++++++++++++++++++
+R: rithm
+B:, D:, F:, S: - background information
+
+------------------------------------------
+I: instruction
+a) I:abc-charset utf-8, should not change
+b) I:abc-version 2.0, some songs can conform to a previous standard
+c) abc-include <filename.abh> imports the definitions found in a separate abc header file,
+   The included file may contain information fields, stylesheet directives and comments, but no other abc constructs.
+d) I:abc-creator
+
+------------------------------------------
+W: print lyrics below the song
+w: syllable to be aligned with note (above)
+
+Symbol  Meaning
+-  (hyphen) break between syllables within a word
+_  (underscore) previous syllable is to be held for an extra note
+*  one note is skipped (i.e. * is equivalent to a blank syllable)
+~  appears as a space; aligns multiple words under one note
+\-  appears as hyphen; aligns multiple syllables under one note
+|  advances to the next bar
+
+w: syll-a-ble    is aligned with three notes
+w: syll-a--ble   is aligned with four notes
+w: syll-a -ble   (equivalent to the previous line)
+w: time__        is aligned with three notes
+w: of~the~day    is treated as one syllable (i.e. aligned with one note)
+                 but appears as three separate words
+                 
+ gf|e2dc B2A2|B2G2 E2D2|.G2.G2 GABc|d4 B2
+w: Sa-ys my au-l' wan to your aul' wan,
++: Will~ye come to the Wa-x-ies dar-gle?
+
+------------------------------------------
+V: voices
+a) VOLATILE: Multi-voice music is under active review, with discussion 
+   about control voices and interaction between P:, V: and T: fields. It 
+   is intended that the syntax will be finalised in abc 2.2.
+X:1
+T:Zocharti Loch
+C:Louis Lewandowski (1821-1894)
+M:C
+Q:1/4=76
+%%score (T1 T2) (B1 B2)
+V:T1           clef=treble-8  name="Tenore I"   snm="T.I"
+V:T2           clef=treble-8  name="Tenore II"  snm="T.II"
+V:B1  middle=d clef=bass      name="Basso I"    snm="B.I"  transpose=-24
+V:B2  middle=d clef=bass      name="Basso II"   snm="B.II" transpose=-24
+K:Gm
+%            End of header, start of tune body:
+% 1
+[V:T1]  (B2c2 d2g2)  | f6e2      | (d2c2 d2)e2 | d4 c2z2 |
+[V:T2]  (G2A2 B2e2)  | d6c2      | (B2A2 B2)c2 | B4 A2z2 |
+[V:B1]       z8      | z2f2 g2a2 | b2z2 z2 e2  | f4 f2z2 |
+[V:B2]       x8      |     x8    |      x8     |    x8   |
+% 5
+[V:T1]  (B2c2 d2g2)  | f8        | d3c (d2fe)  | H d6    ||
+[V:T2]       z8      |     z8    | B3A (B2c2)  | H A6    ||
+[V:B1]  (d2f2 b2e'2) | d'8       | g3g  g4     | H^f6    ||
+[V:B2]       x8      | z2B2 c2d2 | e3e (d2c2)  | H d6    ||
+
+------------------------------------------
+U: redefine symbol
+a) letters H-W and h-w and the symbol ~ can be reassigned U: T = !trill!
+U: ~ = !roll!
+U: H = !fermata!
+U: L = !accent!
+U: M = !lowermordent!
+U: O = !coda!
+U: P = !uppermordent!
+U: S = !segno!
+U: T = !trill!
+U: u = !upbow!
+U: v = !downbow!
+
+------------------------------------------
+s: symbol lines
+a) must align as lyric lines
+      CDEF    | G```AB`c
+   s: "^slow" | !f! ** !fff!
+
+------------------------------------------
+m: macros 
+a) can be in header file (*.abh)
+b) static macro: m: ~G3 = G{A}G{F}G
+   search and replace on its internal copy of the text before passing that to the parser which plays the tune
+c) transposing macro: same as above, to replace regular notes
+
+
+------------------------------------------
+Pitch
+a) lower octaves use comma and higher apostrophe, AFTER A NOTE
+   Programs should be able to to parse any combinations of , and ' signs appearing after the note. For example C,', 
+   (C comma apostrophe comma) has the the same meaning as C, (C comma) and (uppercase) C' (C apostrophe) should have 
+   the same meaning as (lowercase) c.
+
+------------------------------------------
+Accidentals
+a) symbols ^, = and _ are used (before a note) to notate respectively a sharp, natural or flat. 
+   Double sharps and flats are available with ^^ and __ respectively
+
+------------------------------------------
+Note Lengths
+a) set in the L: field or, if the L: field does not exist, inferred from the M: field
+b) single letter in the range A-G, a-g then represents a note of this length, if the unit note length is an eighth note, 
+   DEF represents 3 eighth notes
+c) differing lengths can be obtained by simply putting a multiplier after the letter. Thus if the unit note length is 1/16, 
+   A or A1 is a sixteenth note, A2 an eighth note
+d) To get shorter notes, divide them - e.g. if A is an eighth note, A/2 is a sixteenth note, A3/2 is a dotted 
+   eighth note, A/4 is a thirty-second note. A/ is shorthand for A/2 and similarly A// = A/4, etc.
+
+------------------------------------------
+Broken rhythm
+a) abc notation uses a > to mean 'the previous note is dotted, the next note halved' and 
+   < to mean 'the previous note is halved, the next dotted'
+The following lines all mean the same thing (the third version is recommended):
+L:1/16
+a3b cd3 a2b2c2d2
+L:1/8
+a3/2b/2 c/2d3/2 abcd
+L:1/8
+a>b c<d abcd
+
+------------------------------------------
+Rests
+a) transcribed with a z or an x and can be modified in length in exactly the same way as normal notes
+
+------------------------------------------
+Clefs and transposition TRANSPOSE(change tone)
+Clef and transposition information may be provided in the K: key and V: voice fields.
+[clef=]<clef name>[<line number>][+8 | -8] [middle=<pitch>] [transpose=<semitones>] [octave=<number>] [stafflines=<lines>]
+
+DO NOT AFFECT PLAYBACK?
+<clef name> - may be treble, alto, tenor, bass, perc or none. perc selects the drum clef
+[<line number>] - indicates on which staff line the base clef is written. Defaults are: treble: 2; alto: 3; tenor: 4; bass: 4
+[middle=<pitch>] - is an alternate way to define the line number of the clef. The pitch indicates what note is displayed on 
+  the 3rd line of the staff. Defaults are: treble: B; alto: C; tenor: A,; bass: D,; none: B. 
+  This setting does not affect the playback.
+[stafflines=<lines>] - the number of lines in the staff. The default is 5.
+
+TRANSPOSE
+*[+8 | -8] - draws '8' above or below the staff. The player will TRANSPOSE the notes one octave higher or lower.
+*[transpose=<semitones>] - for playback, transpose the current voice by the indicated amount of semitones; 
+ positive numbers transpose up, negative down. This setting does not affect the printed score. The default is 0.
+*[octave=<number>] to raise (positive number) or lower (negative number) the music code in the current voice 
+ by one or more octaves. This usage can help to avoid the need to write lots of apostrophes or commas to raise or lower notes.
+
+K:   clef=alto
+K:   perc stafflines=1
+K:Am transpose=-2
+V:B  middle=d bass
+
+Name  specifier
+Treble  K:treble
+Bass  K:bass
+Baritone  K:bass3
+Tenor  K:tenor
+Alto  K:alto
+Mezzosoprano  K:alto2
+Soprano  K:alto1
+
+------------------------------------------
+Beams
+Group notes by omitting space
+Back quotes ` may be used freely between notes to be beamed, to increase legibility A2``B``C is equivalent to A2BC
+
+------------------------------------------
+Repeat/bar symbols
+Symbol  Meaning
+| bar line
+|]  thin-thick double bar line
+||  thin-thin double bar line
+[|  thick-thin double bar line
+|:  start of repeated section
+:|  end of repeated section
+::  start & end of two repeated sections
+
+If an 'end of repeated section' is found without a previous 'start of repeated section', 
+
+:: =   :| |: == :|: == :||:
+|:: = repeat 2 |::: repeat 3 ...
+
+Abc parsers should be quite liberal in recognizing bar lines. In the wild, bar lines may have any shape, using a 
+sequence of | (thin bar line), [ or ] (thick bar line), and : (dots), e.g. |[| or [|::: .
+
+------------------------------------------
+First and second repeats
+can be notated with the symbols [1 and [2   faf gfe|[1 dfe dBA:|[2 d2e dcB|]
+| [1 = legal
+| 1 = illegal
+bar must preceed number without space
+
+------------------------------------------
+Variant endings
+In combination with P: part notation, it is possible to notate more than two variant endings for a section 
+that is to be repeated a number of times.
+
+For example, if the header of the tune contains P:A4.B4 then parts A and B will each be played 4 times. 
+To play a different ending each time, you could write in the tune:
+
+P:A
+<notes> | [1  <notes>  :| [2 <notes> :| [3 <notes> :| [4 <notes> |]
+The Nth ending starts with [N and ends with one of ||, :| |] or [|. You can also mark a section as being used 
+for more than one ending e.g.
+
+[1,3 <notes> :|
+plays on the 1st and 3rd endings and
+
+[1-3 <notes> :|
+plays on endings 1, 2 and 3. In general, '[' can be followed by any list of numbers and ranges as long as it 
+contains no spaces e.g.
+
+[1,3,5-7  <notes>  :| [2,4,8 <notes> :|
+
+------------------------------------------
+Ties and slurs
+You can tie two notes of the same pitch together, within or between bars, with a - symbol, e.g. abc-|cba or c4-c4. 
+The tie symbol must always be adjacent to the first note of the pair, but does not need to be adjacent to the second, 
+e.g. c4 -c4 and abc|-cba are not legal 
+
+Ties connect two successive notes of the same pitch, causing them to be played as a single note, 
+while slurs connect the first and last note of any series of notes, and may be used to indicate phrasing, 
+or that the group should be played legato
+
+------------------------------------------
+Grace notes
+written by enclosing them in curly braces, {}
+
+------------------------------------------
+Duplets, triplets, quadruplets, etc.
+
+Symbol  Meaning
+(2  2 notes in the time of 3
+(3  3 notes in the time of 2
+(4  4 notes in the time of 3
+(5  5 notes in the time of n
+(6  6 notes in the time of 2
+(7  7 notes in the time of n
+(8  8 notes in the time of 3
+(9  9 notes in the time of n
+
+If the time signature is compound (6/8, 9/8, 12/8) then n is three, otherwise n is two.
+
+More general tuplets can be specified using the syntax (p:q:r which means 'put p notes into the time of q for the next r notes'. 
+If q is not given, it defaults as above. If r is not given, it defaults to p.
+
+For example, (3 is equivalent to (3:: or (3:2 , which in turn are equivalent to (3:2:3, whereas (3::2 is equivalent to (3:2:2.
+
+This can be useful to include notes of different lengths within a tuplet, for example (3:2:2 G4c2 or (3:2:4 G2A2Bc. 
+It also describes more precisely how the simple syntax works in cases like (3 D2E2F2 or even (3 D3EF2. The number written over 
+the tuplet is p.
+
+Spaces that appear between the tuplet specifier and the following notes are to be ignored.
+
+------------------------------------------
+Decorations
+Between !! 
+Must parse them
+Do they affect the music?
+
+------------------------------------------
+Chords and unisons
+coded with [] symbols around the notes [CEGc]
+there should be no spaces within the notation for a chord
+notes within a chord should normally have the same length, but if not, the chord duration is that of the first note.
+When both inside and outside the chord length modifiers are used, they should be multiplied. 
+Example: [C2E2G2]3 has the same meaning as [CEG]6.
+
+If the chord contains two notes of the same pitch, then it is a unison
+
+HOWTO: 
+-divide the time by all notes, since they all play the same length
+-alternate among all notes playing only a smaller length, obtained by another accustically optimal divisor
+
+------------------------------------------
+Annotations
+can be added above, below or on the staff in a similar way to chord symbols
+string within double quotes is preceded by one of five symbols ^, _, <, > or @ 
+controls where the annotation is to be placed; above, below, to the left or right 
+respectively of the following note, rest or bar line
+@ symbol leaves the exact placing of the string to the discretion of the interpreting program
+
+------------------------------------------
+------------------------------------------
+Order of abc constructs
+<grace notes>, <chord symbols>, <annotations>/<decorations>, <accidentals>, <note>, <octave>, <note length>
+decorations: (e.g. Irish roll, staccato marker or up/downbow)
+ i.e.   ~^c'3 or "Gm7"v.=G,2
+
+
+------------------------------------------
+------------------------------------------
+Abc data format
+
+TUNE BODY: 
+!"#$%&'()*+,-./0123456789:;<=>?@
+ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+abcdefghijklmnopqrstuvwxyz{|}~
+
+RESERVED:
+# * ; ? @
+not be ignored when they appear inside text strings or information fields.
+
+
+------------------------------------------
+------------------------------------------
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,227 @@
+# -*- coding: utf-8 -*-
+
+Read file line by line
+Pre parse into sections: header, song(header,lines)
+
+Handle line breaks
+1) break char is usually '\'
+2) Handle I tag which might change break char
+
+
+   𝄀  𝄥𝄅
+𝆺𝅥𝅯
+    notes = Set(['C', 'D', 'E', 'F', 'G', 'A', 'B', 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'z', 'Z'])
+    in_tag = False
+    in_bar = False
+    in_repeat = False
+    in_group = False
+    prev_char = None
+    prev_note = None
+
+
+
+
+
+
+
+
+
+"""
+http://www.ascii-code.com/
+http://www.stephenmerrony.co.uk/uploads/ABCquickRefv0_6.pdf
+http://trillian.mit.edu/~jc/music/abc/doc/ABCtut_Headers.html
+http://trillian.mit.edu/~jc/music/abc/doc/ABCprimer.html
+http://www.lesession.co.uk/abc/abc_notation.htm
+http://abcnotation.com/wiki/abc:standard:v2.1#englishabc
+http://abcnotation.com/learn
+
+"""
+
+"""
+B:book
+C:composer
+D:discography
+F:file URL
+G:group G:flute
+H:history
+I:instruction
+K:key [clef] [middle=x] K:G, K:AMix – Last Header*
+L:note unit length L:1/8
+M:metre M:4/4
+m:macro m: ~n2 = (3o/n/m/ n
+N:notes
+O:origin
+P:parts P:A, P:ABAC, P:(A2B)3
+Q:tempo Q:"allegro" 1/4=120
+R:rhythm R:R, R:reel
+r:remark
+S:source
+s:symbol line s: !pp! ** !f!
+T:title Second Header
+U:user defined U: T = !trill!
+V:voice V:4 clef=bass**
+W:words Lyrics after tune
+w:words Lyrics inline
+X:reference number First Header
+Z:transcriber
+
+----------------------------------------------------
+COMMENTS:
+% comment
+DEF [r:] FED:|    remark
+
+----------------------------------------------------
+NOTES: 
+C,D,E,F,G,A,B,CDEFGABcdefgabc'd'e'f'g'a'b'
+z = rest
+
+ç ð é ƒ Þ á ô
+Ç Ð É § ¶ Á ß
+----------------------------------------------------
+LENGTH: L: field
+length    ‘English’     ‘American’ 
+1/2        Minim        Half note
+1/4        Crotchet     Quarter note
+1/8        Quaver       Eighth note
+1/16       Semi-quaver  Sixteenth note
+
+N=note
+D=digit
+formula: N/D ND
+         N3 = N>
+
+Jig           1/8
+Reel          1/8
+Schottische   1/8
+Waltz         1/4
+Polka         1/8
+Bourree       1/8
+
+An L: field can be placed in the middle of a tune to denote a change of default note length
+
+----------------------------------------------------
+ACCIDENTALS: sharps, flats, naturals 
+
+^ sharp 
+_ flat
+= natural
+^^
+__
+
+----------------------------------------------------
+BARS SPACE:
+|
+||
+[| 
+|]
+
+----------------------------------------------------
+REPEATS:
+|: start
+:| end
+:||: end-start
+
+----------------------------------------------------
+LINE BREAKS:
+\ suppress (continue, on next line)
+I:linebreak $ or I:linebreak <none>
+
+----------------------------------------------------
+TOKENS:
+  prefix:
+    ^ : sharp
+    = : natural
+    _ : flat
+  suffix:
+    , = lower octave
+    ' = higher octave
+    # = digit, note length multiplier
+    /# = digit, note length divider
+    / = half note
+    // = quarter note
+    
+  modifiers:
+  > = previous note 3/2 - next note 1/2
+  < = previous note 1/2 - next note 3/2
+    
+----------------------------------------------------
+TUNE IDENTIFICATION KEYS:   X T C O R
+TUNE MODIFIER KEYS:         P V M L Q K
+TUNE INTERPRETATION KEYS:   I m U
+TUNE INFORMATION KEYS:      B D F G H N S Z
+
+/ = Divide
+
+M:   /    metre, C = 4/4   C| = 2/2
+L:   /    note length
+Q:   ?    tempo, beats per minute
+     solve fractions to obtain beats per minute, can have a string
+
+Grave -               30 and below
+Largo -               40-50
+Larghetto -           51-60
+Adagio -              61-76 but usually around 72
+Andantino -           77-83
+Andante -             84-90
+Andante Moderato -    90-100
+Moderato              100-115
+Allegro Moderato -    116
+Allegretto -          117-119
+Allegro -             120-160
+Allegro con Brio -    130
+Molto Allegro -       140-160
+Allegro Vivace -      161-170
+Vivace -              171-179
+Presto -              180-199
+Prestissimo -         200
+
+P: Parts = section of the tune, Labeled embedded tags
+V: Voices (not supported in first version of this thing)
+
+body: notes, groups, tags
+
+"""
+
+    """
+    C,D,E,F,G,A,B,CDEFGABcdefgabc'd'e'f'g'a'b' z Z x X
+    ç ð é ƒ ¶ á ô
+    Ç Ð É § Ø Á ß
+    ^ sharp   _ flat  = natural ^^
+    BARS SPACE: |  ||  [|  |]
+    | ¦ « »
+    REPEATS:  |: start  :| end  :||: end-start
+    ‹ › ¤
+    LINE BREAKS:  \ continue
+    I:linebreak $ or I:linebreak <none>
+    
+    TOKENS:
+      prefix:
+        ^ : sharp ^^
+        ^ ¯
+        = : natural
+        _ : flat __
+        _ —
+      suffix:
+        , = lower octave
+        ' = higher octave
+        # = digit, note length multiplier
+        /# = digit, note length divider
+        / = half note ½
+        // = quarter note ¼
+        
+      modifiers:
+      > = previous note 3/2 - next note 1/2
+      < = previous note 1/2 - next note 3/2
+    """        
+
+
+
+# class Text(object): # Text="*"
+#   def __init__(self, text):
+#     self.text = text
+#     
+# class Ornament(object): # Grace={*} Staccato=. Turn=~ tr(italic)=T Emphasis=M Hold=H
+#   def __init__(self, ornament):
+#     self.ornament = ornament
+#     
+

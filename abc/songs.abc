@@ -1,0 +1,231 @@
+%abc-2.1
+I:abc-include songs.abh
+I:test 123
+I:abc-include abc.abh
+H:This file contains some \% GREAT
++: example English tunes
+% note that the comments (like this one) are to highlight usages
+%  and would not normally be included in such detail
+O:England             % the origin of all tunes is England
+
+X:1                   % tune no 1
+T:Dusty Miller, The   % title
+T:Binny's Jig         % an alternative title
+C:Trad.               % traditional
+R:DH                  % double hornpipe
+M:3/4                 % meter
+L:1/6
+K:G                   % key
+%%MIDI program Bagpipe 
+B>cd BAG|FA Ac BA|B>cd BAG|DG GB AG:|
+N:notesnotesnotesnotes
+Bdd gfg|aA Ac BA|Bdd gfa|gG GB AG:|
+BG G/2G/2G BG|FA Ac BA|BG G/2G/2G BG|DG GB AG:|
+W:Hey, the dusty miller, and his dusty coat;
+W:He will win a shilling, or he spend a groat.
+W:Dusty was the coat, dusty was the colour;
+W:Dusty was the kiss, that I got frae the miller.
+
+
+
+
+X:2
+% REMOVE THIS NOTE
+T:Old Sir Simon the King
+C:Trad.
++: TRADITIONAL (no author known)
+S:Offord MSS          % from Offord manuscript
+N:see also Playford   % reference note
+M:9/8
+R:SJ                  % slip jig
+N:originally in C     % transcription note
+L:1/6
+K:G
+D|GFG DEF[r:REMOVE THIS COMMENT]FED:|GAG G2D|GFG GAG\
+ F2D|EFE EFE EFG|A2G F2E D2:|
+D|GAG GAB d2D|GAG GAB c2D|[1 EFE EFE EFG|A2G F2E D2:|\ % no line-break in score
+M:12/8                % change of meter
+[2 E2E EFE E2E EFG|\  % no line-break in score
+M:9/8                 % change of meter
+A2G F2E D2|]
+
+X:3
+T:William and Nancy
+T:New Mown Hay
+T:Legacy, The
+C:Trad.
+O:England; Gloucs; Bledington % place of origin
+B:Sussex Tune Book            % can be found in these books
+B:Mally's Cotswold Morris vol.1 2
++: cont. Sussex Tune Book
+D:Morris On                   % can be heard on this record
++: cont. Morris On
+P:(AB)2(AC)2A                 % play the parts in this order
+M:6/8
+m: ~G3 = G{A}G{F}G
+L:1/8
+K:G                        
+[P:A] D|"G"G2G GBd|"C"e2e "G"dBG|"D7"A2d "G"BAG|"C"E2"D7"F "G"G2:|[C:Trad]
+[P:B] d|"G"e2d B2d|"C"gfe "G"d2d| "G"e2d    B2d|"C"gfe    "D7"d2c|
+        "G"B2B Bcd|"C"e2e "G"dBG|"D7"A2d "G"BAG|"C"E2"D7"F "G"G2:|
+% changes of meter, using inline fields
+[T:Slows][M:4/4][L:1/4][P:C]"G"d2|"C"e2 "G"d2|B2 d2|"Em"gf "A7"e2|"D7"d2 "G"d2|\
+       "C"e2 "G"d2|[M:3/8][L:1/8] "G"B2 d |[M:6/8] "C"gfe "D7"d2c|
+        "G"B2B Bcd|"C"e2e "G"dBG|"D7"A2d "G"BAG|"C"E2"D7"F "G"G2:|
+[|A2.-G & ~G3|| F2-E D2|]
+[|('A2G) ~G3|| .(F2E D2)|]
+[|['A2G] ~G3|| z4 {F2E D2}  (2AB|]
+
+
+X:4
+T:Lucy Test
+M:6/8
+%M:5 + 3/4
+%Q:1/4 3/8 1/4 3/8=40 "Moderato"
+%Q:1/4=108 "Moderatozzz"
+%Q:1/2=58"
+Q:1/2=158"
+%Q:Grave
+L:1/4
+%K:G                        
+K:1 sharp
+
+[|ggagcbggag|\
+[L:1/4]
+dcgggecbaz4|]
+
+
+X:5
+T:Making my way downtown
+M:4/4
+Q:1/2=68"
+L:1/4
+K:G                        
+
+[| b' b'' b' b'' b_'' b' b_'' f^'' z6 d^'' c^'' b' b'' b' b'' b_'' b' b_''  f^'' b' f^'' b' f^'' b' d^'' e'' d^'' c^'' 
+ |]
+[|  b'' b' b'' b_'' b' b_'' f^'' z6 d^'' c^'' b' d^'' c^'' b' d^'' c^'' b' f^''
+ |]
+
+X:6
+T:midi test
+M:4/4
+Q:1/2=158"
+L:1/4
+K:G                        
+
+[| G2 b' c a |]
+M:2/4
+[| G2 b' c a [|] [|]
+
+| [1 c || a  |: a b c  :: e f g  ::|:  gf ed  :|  | [1  | [ 1
+
+|:  a b c  |1  e f g  ::::|2  gf ed   |] 
+
+ |:::::: b b aa c c ::::::| 
+ 
+ [1,3,5-7 a-a
+ |1,2,4-9    |:  
+
+
+X:7
+T:midi test2
+V:T1           clef=treble-8  name="Tenore I"   snm="T.I"
+V:T2           clef=treble-8  name="Tenore II"  snm="T.II"M:4/4
+Q:1/2=158"
+L:1/4
+K:G                        
+
+[V:T1] |:: b b aa c c ::| 
+w:vien-to tan bue--no co--mo quer--ri-a.
+C:Trad.               % traditional
+R:DH                  % double hornpipe
+[V:T2]||  a b c  |1  e f g  ::|2  gf ed   ::|] | 
+V:3
+%%MIDI channel 2
+x2x2x4|x2GA BGx2|B/E/F/^G/A/B/c/A/x4|x2A2d4|
+d2d2G2A2-|A2^G2x8|:x2x2B4|x2x2x2x2|
+x4x4|x2A2[d4A4]|d2d4dc|BAB2x8:|
+
+
+X:8
+T:Agora viniesse un viento
+%%header "Agora viniesse un viento		$P / 1"
+%%newpage 1
+%T:(ton original)
+C:Luys de Milan (1536)
+M:4/4
+Q:1/4=132
+%P:ABAB
+V:T1           clef=treble-8  name="Tenore I"   snm="T.I"
+V:T2           clef=treble-8  name="Tenore II"  snm="T.II" M:4/4
+%K:Em
+K:C
+%%staves 1 {2 3 4}
+%%continueall 1
+%%maxshrink 0.5
+V:1
+%%MIDI program 40
+|:: O b !rock!b a|-b  Yaa !roll!c c (3abc::| 
+||  a b c  |1  [e f g]  ::|2  gf ed  a|-,b .(def)  ::|] | 
+
+[P:A]SB2c2d4|e2d2d2c2|B4B4|B2cBA4|
+w:A-go-ra vi-nies-se un vien-to que me e-chas-
+w:Y me hi-sies-se tan con-ten-to que me e-chas-
+Bcd4c2|B4A8!fine!||:e2f2g4|f2e2e2^d2|
+w:se a-cu-lla den-tro. A-go-ra vi-nies-se un
+w:se a-cu-lla den-tro. que me~e-chas-se a-cu-lla
+e4e4|B2cBA4|Bcd4A2|B2B2A8S:|
+w:vien-to tan bue--no co--mo quer--ri-a.
+w:den-tro en fal--das de_ mi a--mi-ga.
+V:2
+%%MIDI program 24
+[B2^G2][c2A2][d4=G4]|[e2c2]d2d2[c2A2]|e4[e4B4]|[B2^G2]cB f=gaf|
+[gB][ac]b2d2e2|[e4B4][^c8A8]|:[e2c2][f2d2][g4d4]|[f2d2][e2B2][e2c2][^d2B2]|
+[eB]=d/c/ B/A/G/F/E4|[B2^G2]cB f=gaf|g2gab2f2|e2e2[^c8A8]:|
+V:3
+%%MIDI channel 2
+x2x2x4|x2GA BGx2|B/E/F/^G/A/B/c/A/x4|x2A2d4|
+d2d2G2A2-|A2^G2x8|:x2x2B4|x2x2x2x2|
+x4x4|x2A2[d4A4]|d2d4dc|BAB2x8:|
+V:4
+%%MIDI channel 2
+%%MIDI program cymbal
+[E2E,2][E2A,2][D4G,4]|[G2C2][D4G,4][E2A,2]|E,4E,4|[E2E,2][E2A,2][A4D4]|
+G,3A, B,G,A,2|E,4[E8A,8]|:[G2C2][A2D2]G,A,B,C|[A2D2][G2E2][A2A,2][F2B,2]|
+E,8|[E2E,2][E2A,2]D4|[BG][cA][B4G4][A2D2]|E2E2[E8A,8]:|
+[V:T1] |:: b !rock!b aa !roll!c c ::| 
+w:vien-to tan bue--no co--mo quer--ri-a.
+C:Trad.               % traditional
+R:DH                  % double hornpipe
+[P:B][V:T2]||  a b c  |1  e f g  ::|2  gf ed  a-b (def)  ::|] | 
+U: L = !accent!
+|:: b !rock!b aa !roll!c c ::| 
+U: L = !fermata!
+U: Y = !mysymbol!
+
+
+X:9
+T:Test
+M:6/8
+Q:120
+L:1/4
+K:1 sharp
+
+[| def (a6b6c6) f5 g cba|]
+
+X: 10
+T: Key Signatures
+Q:120
+L:1/4
+K: A
+%%MIDI program guitar
+             |    "A"CDE FGA | Bcd efg | \
+[K:G]        |    "G"CDE FGA | Bcd efg | \
+[K:Bb]       |   "Bb"CDE FGA | Bcd efg | \
+[K:Dm]       |   "Dm"CDE FGA | Bcd efg | \
+[K:F#m]      |  "F#m"CDE FGA | Bcd efg | \
+[K:ADor]     | "ADor"CDE FGA | Bcd efg | \
+[K:Gm^F]     | "Gm^F"CDE FGA | Bcd efg | \
+[K:DMix_B_e] | "Dhjz"CDE FGA | Bcd efg | \
+[K:^G]       | "Ehjz"CDE FGA | Bcd efg | \

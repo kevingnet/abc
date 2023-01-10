@@ -1,0 +1,301 @@
+"""
+FROM ABC NOTATION PDF
+http://www.stephenmerrony.co.uk/uploads/ABCquickRefv0_6.pdf
+
+Decorations
+Short Forms
+. Staccato
+~ Irish roll/turn
+T trill
+H fermata
+L accent or emphasis
+M inverted mordent
+P mordent
+S segno
+O coda
+J slide
+R roll
+u upbow
+v downbow
+Dynamics
+!crescendo(! or !<(! start of a < crescendo mark
+!crescendo)! or !<)! end of a < crescendo mark,
+placed after the last note
+!diminuendo(! or !>(! start of a > diminuendo mark
+!diminuendo)! or !>)! end of a > diminuendo mark,
+placed after the last note
+!pppp! !ppp! !pp! !p! !mp! !mf! !f! !ff! !fff! !ffff! !sfz!
+
+Ornaments
+!trill! "tr" trill, also !trill(! and !trill)!
+!lowermordent! short squiggle with a line through it
+!uppermordent! short squiggle
+!mordent! same as !lowermordent!
+!pralltriller! same as !uppermordent!
+!accent! > mark
+!>! same as !accent!
+!emphasis! same as !accent!
+!fermata! fermata or hold (arc above dot)
+!invertedfermata!
+!tenuto! horizontal bar
+!trem1/2/3/4! tremolo (on 2nd note)
+!xstem! stem up to staff above
+!slide! !turnx! !invertedturn! !
+invertedturnx! !arpeggio!
+
+Fingering & Phrasing
+!0! - !5! fingerings
+!plus! left-hand pizzicato, or rasp for brass
+!wedge! small filled-in wedge mark
+!open! small circle above note indicating
+open string or harmonic
+!thumb! cello thumb symbol
+!snap! snap-pizzicato mark
+!turn! a turn mark
+!roll! a roll mark (arc) as used in Irish music
+!breath! a breath mark (apostrophe) after note
+!shortphrase! vertical line on the upper part of staff
+!mediumphrase! same, but extending down to the middle
+!longphrase! same, but extending 3/4 of the way down
+!upbow! V mark
+!downbow! squared n mark
+Repeat/Section Symbols
+!segno! 2 s-like symbols separated by diagonal
+!coda! a ring with a cross in it
+!D.S.! the letters D.S. (Da Segno)
+!D.C.! the letters D.C. (Da Coda or Da Capo)
+!dacoda! !dacapo! !fine! 
+
+Correct Order of Elements
+<grace notes><chord symbols><decorations><accidentals>
+<NOTE><octave><note length><tie>
+
+Accented Characters etc.
+Accent Examples Encodings
+grave À à è ò \`A \`a \`e \`o
+acute Á á é ó \'A \'a \'e \'o
+circumflex Â â ê ô \^A \^a \^e \^o
+tilde Ã ã ñ õ \~A \~a \~n \~o
+umlaut Ä ä ë ö \"A \"a \"e \"o
+cedilla Ç ç \,C \,c
+ring Å å \oA \oa
+slash Ø ø \/O \/o
+breve Ă ă Ĕ ĕ \uA \ua \uE \ue
+caron Š š Ž ž \vS \vs \vZ \vz
+double acute Ő ő Ű ű \HO \Ho \HU \Hu
+ligatures ß Æ æ œ \ss \AE \ae \oe
+copyright © &copy; or \u0022
+sharp/nat./flat ♯ ♮ ♭ \u266f \u266e \u266d
+
+* Clefs
+treble Treble (default)
+treble-8 Treble 8ve below eg.tenors
+treble+8 Treble 8ve above eg.piccolo
+bass Bass
+bass3 Baritone
+alto4 Tenor
+alto Alto
+alto2 Mezzosoprano
+alto1 Soprano
+none No clef
+perc Percussion
+** Voices
+The voice name is a digit or a word followed by:
+clef= clef of the voice
+perc percussion staff
+name=xxx name at the left of the first staff
+sname=xxx name that appears left of later staves
+merge indicates that this voice belongs to
+ the same staff as the previous voice
+up or down forces the note stem direction
+gstem=up/down/auto forces the grace note stem direction
+stem=up/down/auto forces the note stem direction
+dyn=up/down/auto forces the placement of dynamic marks
+lyrics=up/down/auto forces the placement of the lyrics
+middle=<note> specify name of note on middle line
+staffscale=n sets the scale of the associated staff
+stafflines=n sets the number of lines of the staff
+
+Notes
+C,, C, C (middle-C) c c' c''
+^ sharp
+^^ double sharp
+= natural
+_ flat
+__ double flat
+z rest
+Z bar's rest
+x invisible rest
+X invisible bar rest
+y spacer
+- tie
+( ) slur
+.- dotted tie
+.( ) dotted slur
+-, tie below
+(' ) slur above
+{/g} grace note
+(3 3 notes in time of 2
+(p:q:r p notes in time of q
+for next r notes
+[ceg] chord
+& overlay temp voice
+
+Repeats and Bars
+| |] || [| |: :| ::
+[|] invisible bar line
+.| dotted bar line
+[1 [2 1
+st and 2nd time repeats
+Chord Symbols
+m or min minor e.g. "Am7"A2D2
+maj major
+dim diminished
+aug or + augmented
+sus sustained
+7, 9 ... 7th, 9th, etc.
+Lyrics
+- break between syllables within a word
+_ last syllable is to be held for an extra note
+* one note is skipped
+~ appears as a space; puts multiple words under note
+\- appears as hyphen; multiple syllables under note
+| advances to the next bar 
+
+
+------------------------------------------
+------------------------------------------
+
+"""
+
+
+midi_instruments = """
+1 Acoustic Grand
+2 Bright Acoustic
+3 Electric Grand
+4 Honky-Tonk
+5 Electric Piano 1
+6 Electric Piano 2
+7 Harpsichord
+8 Clavinet
+9 Celesta
+10 Glockenspiel
+11 Music Box
+12 Vibraphone
+13 Marimba
+14 Xylophone
+15 Tubular Bells
+16 Dulcimer
+17 Drawbar Organ
+18 Percussive Organ
+19 Rock Organ
+20 Church Organ
+21 Reed Organ
+22 Accordion
+23 Harmonica
+24 Tango Accordion
+25 Acoustic Guitar(nylon)
+26 Acoustic Guitar(steel)
+27 Electric Guitar(jazz)
+28 Electric Guitar(clean)
+29 Electric Guitar(muted)
+30 Overdriven Guitar
+31 Distortion Guitar
+32 Guitar Harmonics
+33 Acoustic Bass
+34 Electric Bass (finger)
+35 Electric Bass (pick)
+36 Fretless Bass
+37 Slap Bass 1
+38 Slap Bass 2
+39 Synth Bass 1
+40 Synth Bass 2
+41 Violin
+42 Viola
+43 Cello
+44 Contrabass
+45 Tremolo Strings
+46 Pizzicato Strings
+47 Harp
+48 Timpani
+49 String Ensemble 1
+50 String Ensemble 2
+51 Synth Strings 1
+52 Synth Strings 2
+53 Choir Aahs
+54 Voice Oohs
+55 Synth Voice
+56 Orchestra Hit
+57 Trumpet
+58 Trombone
+59 Tuba
+60 Muted Trumpet
+61 French Horn
+62 Brass Section
+63 Synth Brass 1
+64 Synth Brass 2
+65 Soprano Sax
+66 Alto Sax
+67 Tenor Sax
+68 Baritone Sax
+69 Oboe
+70 English Horn
+71 Bassoon
+72 Clarinet
+73 Piccolo
+74 Flute
+75 Recorder
+76 Pan Flute
+77 Blown Bottle
+78 Skakuhachi
+79 Whistle
+80 Ocarina
+81 Lead 1 (square)
+82 Lead 2 (sawtooth)
+83 Lead 3 (calliope)
+84 Lead 4 (chiff)
+85 Lead 5 (charang)
+86 Lead 6 (voice)
+87 Lead 7 (fifths)
+88 Lead 8 (bass+lead)
+89 Pad 1 (new age)
+90 Pad 2 (warm)
+91 Pad 3 (polysynth)
+92 Pad 4 (choir)
+93 Pad 5 (bowed)
+94 Pad 6 (metallic)
+95 Pad 7 (halo)
+96 Pad 8 (sweep)
+97 FX 1 (rain)
+98 FX 2 (soundtrack)
+99 FX 3 (crystal)
+100 FX 4 (atmosphere)
+101 FX 5 (brightness)
+102 FX 6 (goblins)
+103 FX 7 (echoes)
+104 FX 8 (sci-fi)
+105 Sitar
+106 Banjo
+107 Shamisen
+108 Koto
+109 Kalimba
+110 Bagpipe
+111 Fiddle
+112 Shanai
+113 Tinkle Bell
+114 Agogo
+115 Steel Drums
+116 Woodblock
+117 Taiko Drum
+118 Melodic Tom
+119 Synth Drum
+120 Reverse Cymbal
+121 Guitar Fret Noise
+122 Breath Noise
+123 Seashore
+124 Bird Tweet
+125 Telephone Ring
+126 Helicopter
+127 Applause
+128 Gunshot
+"""
